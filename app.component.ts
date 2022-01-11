@@ -50,7 +50,7 @@ export class AppComponent implements OnInit{
   }
 
 
-  public onOpenModal(mode: string): void{
+  public onOpenModal(post: Post |null, mode: string): void{
     const container = document.getElementById('main-container');
     const button = document.createElement('button')
     button.type = 'button';
@@ -77,6 +77,7 @@ export class AppComponent implements OnInit{
       aux1.style.display="none";
       aux2.style.display="none";
       aux3.style.display="none";
+
     }
     if (mode == 'view')
       {button.setAttribute('data-target','#viewPostModal');
@@ -149,18 +150,32 @@ export class AppComponent implements OnInit{
     );
   }
 
-  public onDeletePost(removeForm: NgForm): void {
-    document.getElementById('remove-post-form')?.click();
-    this.postService.deletePost(removeForm.value).subscribe(
+  public onDeletePost(): void {
+
+    const removeForm = parseInt((document.getElementById("id") as HTMLInputElement).value);
+    this.postService.deletePost(removeForm).subscribe(
       (response: void) => {
-        console.log(response);
-        console.log(removeForm.value);
-        this.getPosts();
+        alert("Post "+removeForm+" deleted!")
       },
       (error: HttpErrorResponse) => {
-        console.log(removeForm.value)
+        console.log(removeForm)
         alert(error.message);
       }
     );
   }
+
+
+public onDeletePost3(PostId: number ): void {
+  this.postService.deletePost(PostId).subscribe(
+    (response: void) => {
+      console.log(response);
+      console.log(PostId);
+      this.getPosts();
+    },
+    (error: HttpErrorResponse) => {
+      console.log(PostId)
+      alert(error.message);
+    }
+  );
+}
 }

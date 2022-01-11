@@ -6,16 +6,16 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" (click)="onOpenModal('home')" >Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#" (click)="onOpenModal(null,'home')" >Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="onOpenModal('add')">News Feed</a>
+        <a class="nav-link" href="#" (click)="onOpenModal(null,'add')">News Feed</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="onOpenModal('view')">Add New Post</a>
+        <a class="nav-link" href="#"(click)="onOpenModal(null,'view')">Add New Post</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="onOpenModal('delete')">Delete Post</a>
+        <a class="nav-link" href="#" (click)="onOpenModal(null,'delete')">Delete Post</a>
       </li>
     </ul>
   </div>
@@ -73,18 +73,20 @@
   <h3>Some friends online you may know or want to get to know are {{friends()}}</h3>
 </div>
 
-<div style="display: none;" id="delete">
-  <form #removeForm="ngForm" (ngSubmit)="onDeletePost(removeForm)">
+
+<div style="display: none;" id="delete" aria-label="deletePostLabel">
+  <form #removeForm="ngForm">
     <div class="form-group">
        <label for="id" >Post Number</label>
        <input type="number" ngModel name="Post Number" class="form-control" id="id" placeholder="Post Number" required >
+       <label for="id" >Are you sure you want to delete </label>
+
     </div>
     <div class="modal-footer">
        <button type="button" id="remove-post-form" class="btn btn-secondary" (click)="goToNewsFeed()">Close</button>
-       <button [disabled]="removeForm.invalid" type="submit" class="btn btn-primary" (click)="goToNewsFeed()">Delete Post</button>
+       <button type="submit" class="btn btn-danger" (click)="onDeletePost()">Delete Post</button>
     </div>
     </form>
 </div>
-
 
 
